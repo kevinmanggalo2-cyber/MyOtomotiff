@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyOtomotif | Jual Beli Motor & Mobil Sport</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Variabel CSS untuk Warna */
+        :root {
+            --color-primary: #DC0E0E; /* Merah */
+            --color-secondary: #000000; /* Hitam */
+            --color-light: #FFFFFF; /* Putih */
+            --font-main: 'Raleway', sans-serif;
+        }
+
+        /* Styling Umum */
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-secondary);
+            color: var(--color-light);
+            transition: background-color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--color-light);
+        }
+
+        .text-primary-color {
+            color: var(--color-primary) !important;
+        }
+        .bg-primary-color {
+            background-color: var(--color-primary) !important;
+        }
+        .btn-primary {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #A00B0B; /* Merah Lebih Gelap */
+            border-color: #A00B0B;
+            transform: translateY(-2px);
+        }
+
+        /* Header dengan Background Video */
+        #header-video {
+            position: relative;
+            height: 80vh; /* Tinggi Header */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        #header-video video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            /* Memastikan video memenuhi container dan terpotong jika perlu */
+        }
+        #header-content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6); /* Overlay gelap */
+            border-radius: 10px;
+        }
+        #header-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: var(--color-secondary) !important;
+            border-bottom: 2px solid var(--color-primary);
+        }
+        .navbar-brand img {
+            height: 40px; /* Tinggi Logo */
+            margin-right: 10px;
+        }
+        .nav-link {
+            color: var(--color-light) !important;
+            font-weight: 700;
+            margin: 0 10px;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-primary) !important;
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        /* Kartu Produk (Motor/Mobil) */
+        .product-card {
+            background-color: #1a1a1a; /* Agak terang dari background */
+            border: 1px solid rgba(220, 14, 14, 0.5); /* Border Merah Muda */
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            height: 100%; /* Memastikan tinggi kartu sama di grid */
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(220, 14, 14, 0.3);
+        }
+        .product-img-container {
+            height: 200px;
+            overflow: hidden;
+        }
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .product-card .card-body {
+            padding: 15px;
+        }
+        .product-card .card-title {
+            color: var(--color-primary);
+            font-weight: 900;
+        }
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--color-light);
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .favorite-btn:hover {
+            color: var(--color-primary);
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .favorite-btn.favorited i {
+            color: var(--color-primary);
+        }
+
+        /* Animasi Kustom dengan Anime.js */
+        .section-title {
+            font-weight: 900;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            display: inline-block;
+            border-bottom: 4px solid var(--color-primary);
+            padding-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            border-top: 2px solid var(--color-primary);
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        /* Tampilan Mobile */
+        @media (max-width: 768px) {
+            #header-content h1 {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .navbar-brand img {
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="50">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img src="assets/MO.png" alt="MyOtomotif Logo">
+                My<span class="text-primary-color">Otomotif</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#kategori">Kategori</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#transaksi">Riwayat</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tentang">Tentang Kami</a></li>
+                </ul>
+                <form class="d-flex" onsubmit="searchVehicle(event)">
+                    <input class="form-control me-2" type="search" placeholder="Cari Kendaraan..." aria-label="Search" id="search-input">
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <header id="header-video" class="mb-5">
+        <video autoplay muted loop id="video-bg">
+            <source src="assets/CS.mp4" type="video/mp4">
+            Browser Anda tidak mendukung tag video.
+        </video>
+        <div id="header-content">
+            <h1 class="text-primary-color">POWER. SPEED. STYLE.</h1>
+            <p class="lead text-light">Temukan Motor dan Mobil Sport Impian Anda.</p>
+            <a class="btn btn-primary btn-lg mt-3" href="#home">Lihat Koleksi</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="home" class="py-5">
+            <div class="text-center">
+                <h2 class="section-title text-light">🔥 Kendaraan Paling Diminati 🔥</h2>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="product-list">
+                </div>
+        </section>
+
+        <hr class="border border-primary-color border-3 opacity-75 my-5">
+
+        <section id="kategori" class="py-5">
+            <div class="text-center">
+                <h2 class="section-title text-light">Kategori Kendaraan</h2>
+            </div>
+            <div class="row text-center g-4">
+                <div class="col-md-6">
+                    <div class="card bg-dark text-light border-primary-color product-card p-4">
+                        <i class="fas fa-motorcycle fa-4x mb-3 text-primary-color"></i>
+                        <h3 class="card-title">Motor Sport</h3>
+                        <p>Koleksi motor berperforma tinggi dari berbagai merek ternama.</p>
+                        <a href="#" class="btn btn-primary mt-2" onclick="filterCategory('motor')">Lihat Motor</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card bg-dark text-light border-primary-color product-card p-4">
+                        <i class="fas fa-car fa-4x mb-3 text-primary-color"></i>
+                        <h3 class="card-title">Mobil Sport</h3>
+                        <p>Mobil mewah dan cepat yang siap memacu adrenalin Anda.</p>
+                        <a href="#" class="btn btn-primary mt-2" onclick="filterCategory('mobil')">Lihat Mobil</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border border-primary-color border-3 opacity-75 my-5">
+
+        <section id="favorit" class="py-5">
+            <div class="text-center">
+                <h2 class="section-title text-light">⭐ Kendaraan Favorit Anda ⭐</h2>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="favorite-list">
+                <p class="text-center w-100" id="no-favorite-msg">Belum ada kendaraan di daftar favorit.</p>
+                </div>
+        </section>
+
+        <section id="transaksi" class="py-5">
+            <div class="text-center">
+                <h2 class="section-title text-light">Riwayat Transaksi</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover">
+                    <thead>
+                        <tr class="bg-primary-color">
+                            <th>ID Transaksi</th>
+                            <th>Kendaraan</th>
+                            <th>Harga</th>
+                            <th>Metode Pembayaran</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-history">
+                        <tr><td colspan="5" class="text-center" id="no-transaction-msg">Belum ada riwayat transaksi.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <hr class="border border-primary-color border-3 opacity-75 my-5">
+
+        <section id="tentang" class="py-5 text-center">
+            <h2 class="section-title text-light">Tentang MyOtomotif</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <p class="lead">MyOtomotif adalah platform jual beli motor dan mobil sport premium, diciptakan untuk memenuhi hasrat para **pecinta otomotif** sejati. Kami berkomitmen menyediakan koleksi kendaraan berperforma tinggi dengan pengalaman transaksi yang aman dan profesional.</p>
+
+                    <h4 class="mt-4 text-primary-color">Profile Pembuat</h4>
+                    <p class="mb-1"><strong>Nama:</strong> Kevin Dwi Kumara Siri Manggalo</p>
+                    <p class="mb-1"><strong>Semester:</strong> 5</p>
+                    <p class="mb-1"><strong>Program Studi:</strong> Bisnis Digital</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center text-md-start">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 MyOtomotif. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light mx-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-light mx-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-light mx-2"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content bg-dark border-primary-color">
+                <div class="modal-header border-bottom border-primary-color">
+                    <h5 class="modal-title text-primary-color" id="productDetailModalLabel">Detail Kendaraan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="detail-img" src="" class="img-fluid rounded mb-3" alt="Kendaraan Detail">
+                            <div class="ratio ratio-16x9">
+                                <video id="detail-video" controls class="rounded">
+                                    <source src="assets/CS.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h2 id="detail-name" class="text-light"></h2>
+                            <p class="lead text-primary-color" id="detail-price"></p>
+                            <p id="detail-description"></p>
+                            <hr>
+                            <h5 class="text-primary-color">Spesifikasi Utama:</h5>
+                            <ul id="detail-specs" class="list-unstyled">
+                                </ul>
+                            <div class="mt-4">
+                                <button class="btn btn-primary me-2" onclick="openPaymentModal(this)" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                    <i class="fas fa-shopping-cart"></i> Beli Sekarang
+                                </button>
+                                <button id="detail-fav-btn" class="btn btn-outline-light" onclick="toggleFavorite(this.dataset.id)">
+                                    <i class="far fa-heart"></i> Tambah Favorit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark border-primary-color">
+                <div class="modal-header border-bottom border-primary-color">
+                    <h5 class="modal-title text-primary-color" id="paymentModalLabel">Metode Pembayaran</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-light">Anda akan membeli: <strong id="checkout-item-name"></strong> seharga <strong id="checkout-item-price" class="text-primary-color"></strong></p>
+                    <form id="payment-form" onsubmit="completeTransaction(event)">
+                        <div class="mb-3">
+                            <label for="payment-method" class="form-label text-light">Pilih Metode Pembayaran</label>
+                            <select class="form-select bg-dark text-light border-primary-color" id="payment-method" required>
+                                <option value="" disabled selected>Pilih...</option>
+                                <option value="Transfer Bank">Transfer Bank</option>
+                                <option value="Kartu Kredit">Kartu Kredit</option>
+                                <option value="E-Wallet">E-Wallet (OVO/Gopay)</option>
+                                <option value="Cicilan">Cicilan 0%</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="checkout-item-id">
+                        <button type="submit" class="btn btn-primary w-100">Konfirmasi Pembayaran</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <script>
+        // Data Kendaraan (List Motor dan Mobil)
+        const vehicles = [
+            // Motor
+            { id: 'M001', name: 'Kawasaki ZX-25R', category: 'motor', price: 120000000, img: 'assets/MT1.jpg', description: 'Motor sport 250cc 4 silinder yang legendaris dengan suara merdu.', specs: ['250cc Inline-4', '50 HP', 'Quick Shifter', 'ABS'], views: 150 },
+            { id: 'M002', name: 'Honda CBR1000RR-R SP', category: 'motor', price: 650000000, img: 'assets/MT2.jpg', description: 'Superbike flagship Honda, dirancang untuk lintasan balap.', specs: ['1000cc Inline-4', '215 HP', 'Ohlins Suspension', 'TFT Display'], views: 90 },
+            { id: 'M003', name: 'Yamaha R1M', category: 'motor', price: 720000000, img: 'assets/MT3.jpg', description: 'Hyper sport Yamaha dengan teknologi MotoGP dan fairing carbon.', specs: ['998cc Crossplane', '200 HP', 'IMU', 'Carbon Fiber Body'], views: 110 },
+            { id: 'M004', name: 'Ducati Panigale V4R', category: 'motor', price: 1500000000, img: 'assets/MT4.jpg', description: 'Puncak performa Ducati, versi homologasi untuk WorldSBK.', specs: ['998cc V4', '234 HP', 'Brembo Stylema R', 'Dry Clutch'], views: 180 },
+            { id: 'M005', name: 'BMW S1000RR', category: 'motor', price: 680000000, img: 'assets/MT5.jpg', description: 'Motor sport Jerman dengan desain asimetris ikonik dan performa brutal.', specs: ['999cc Inline-4', '207 HP', 'ShiftCam', 'Dynamic Damping Control'], views: 80 },
+            { id: 'M006', name: 'Kawasaki H2R', category: 'motor', price: 1200000000, img: 'assets/MT6.jpg', description: 'Motor tercepat di dunia, dilengkapi Supercharger.', specs: ['998cc Supercharged', '310 HP', 'Track Only', 'Trellis Frame'], views: 220 },
+            { id: 'M007', name: 'Suzuki GSX-R1000R', category: 'motor', price: 550000000, img: 'assets/MT7.jpg', description: 'Motor sport Suzuki yang ringan dan lincah.', specs: ['999cc Inline-4', '202 HP', 'SR-VVT', 'Showa BPF'], views: 60 },
+            { id: 'M008', name: 'KTM RC 390', category: 'motor', price: 100000000, img: 'assets/MT8.jpg', description: 'Motor sport kecil yang sangat fun to ride.', specs: ['373cc Single', '44 HP', 'Slipper Clutch', 'TFT Display'], views: 140 },
+            { id: 'M009', name: 'Aprilia RSV4 Factory', category: 'motor', price: 780000000, img: 'assets/MT9.jpg', description: 'Superbike Italia dengan karakter V4 yang khas.', specs: ['1099cc V4', '217 HP', 'APRC System', 'Semi-Active Suspension'], views: 75 },
+            { id: 'M010', name: 'MV Agusta F4 RC', category: 'motor', price: 950000000, img: 'assets/MT10.jpg', description: 'Karya seni roda dua dari Italia, performa dan desain yang eksklusif.', specs: ['998cc Inline-4', '205 HP', 'Quick Shifter', 'Limited Edition'], views: 50 },
+
+            // Mobil
+            { id: 'B001', name: 'Lamborghini Aventador SVJ', category: 'mobil', price: 25000000000, img: 'assets/MB1.jpg', description: 'Hypercar V12 yang ekstrem dengan aerodinamika ALA aktif.', specs: ['6.5L V12', '770 HP', '0-100 kpj: 2.8s', 'ALA System'], views: 350 },
+            { id: 'B002', name: 'Ferrari F8 Tributo', category: 'mobil', price: 18000000000, img: 'assets/MB2.jpg', description: 'Supercar V8 paling bertenaga di sejarah Ferrari.', specs: ['3.9L Twin-Turbo V8', '710 HP', '0-100 kpj: 2.9s', 'Side Slip Control'], views: 280 },
+            { id: 'B003', name: 'Porsche 911 GT3 RS', category: 'mobil', price: 15500000000, img: 'assets/MB3.jpg', description: 'Mobil balap legal jalanan, fokus pada performa sirkuit.', specs: ['4.0L Flat-6 NA', '525 HP', 'Aerodinamika Ekstrem', 'Weissach Package'], views: 410 },
+            { id: 'B004', name: 'McLaren 720S', category: 'mobil', price: 20000000000, img: 'assets/MB4.jpg', description: 'Super Series McLaren dengan desain dan performa futuristik.', specs: ['4.0L Twin-Turbo V8', '710 HP', '0-100 kpj: 2.9s', 'Proactive Chassis Control'], views: 300 },
+            { id: 'B005', name: 'Audi R8 V10 Performance', category: 'mobil', price: 8500000000, img: 'assets/MB5.jpg', description: 'Supercar harian yang ramah dengan mesin V10 N/A yang legendaris.', specs: ['5.2L V10 NA', '610 HP', 'Quattro AWD', 'Magnetic Ride'], views: 250 },
+            { id: 'B006', name: 'Mercedes-AMG GT R', category: 'mobil', price: 9800000000, img: 'assets/MB6.jpg', description: 'Monster dari Green Hell, dengan performa track yang luar biasa.', specs: ['4.0L Twin-Turbo V8', '577 HP', 'Rear-Axle Steering', '9-Stage Traction Control'], views: 330 },
+            { id: 'B007', name: 'Nissan GT-R Nismo', category: 'mobil', price: 7500000000, img: 'assets/MB7.jpg', description: 'Godzilla Jepang yang dikenal karena akselerasinya yang brutal.', specs: ['3.8L Twin-Turbo V6', '600 HP', 'ATTESA E-TS AWD', 'Carbon Brakes'], views: 380 },
+            { id: 'B008', name: 'Aston Martin Vantage', category: 'mobil', price: 7000000000, img: 'assets/MB8.jpg', description: 'Mobil sport Inggris dengan perpaduan keindahan dan tenaga V8.', specs: ['4.0L Twin-Turbo V8', '503 HP', 'E-Diff', 'Tailored Interior'], views: 200 },
+            { id: 'B009', name: 'Jaguar F-Type R', category: 'mobil', price: 5500000000, img: 'assets/MB9.jpg', description: 'Coupe sport Inggris dengan suara Supercharged V8 yang menggelegar.', specs: ['5.0L Supercharged V8', '575 HP', 'AWD', 'Dynamic Mode'], views: 190 },
+            { id: 'B010', name: 'Chevrolet Corvette C8 Z06', category: 'mobil', price: 12000000000, img: 'assets/MB10.jpg', description: 'Supercar mesin tengah Amerika yang revolusioner dengan flat-plane crank V8.', specs: ['5.5L Flat-Plane V8', '670 HP', '0-100 kpj: 2.6s', 'Mid-Engine'], views: 450 },
+        ];
+
+        // --- JavaScript Global State dan Utils ---
+
+        let currentSearchQuery = '';
+        let currentFilterCategory = '';
+        let selectedVehicleForTransaction = null;
+
+        // Fungsi Format Rupiah
+        const formatRupiah = (number) => new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(number);
+
+        // Fungsi untuk mendapatkan data dari LocalStorage
+        const getLocalStorage = (key, defaultValue = []) => {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : defaultValue;
+            } catch (e) {
+                console.error(`Error reading localStorage key "${key}":`, e);
+                return defaultValue;
+            }
+        };
+
+        // Fungsi untuk menyimpan data ke LocalStorage
+        const setLocalStorage = (key, value) => {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (e) {
+                console.error(`Error writing localStorage key "${key}":`, e);
+            }
+        };
+
+        // --- Fitur Favorite (Local Storage) ---
+
+        let favorites = getLocalStorage('myotomotif_favorites');
+
+        const toggleFavorite = (vehicleId) => {
+            const index = favorites.indexOf(vehicleId);
+            if (index === -1) {
+                favorites.push(vehicleId);
+                alert('Ditambahkan ke Favorit!');
+            } else {
+                favorites.splice(index, 1);
+                alert('Dihapus dari Favorit.');
+            }
+            setLocalStorage('myotomotif_favorites', favorites);
+            renderProductList(vehicles, '#product-list'); // Update list utama
+            renderFavoriteList(); // Update list favorit
+            updateDetailModalFavoriteButton(vehicleId); // Update tombol di modal
+        };
+
+        const isFavorited = (vehicleId) => favorites.includes(vehicleId);
+
+        const renderFavoriteList = () => {
+            const favoriteListContainer = document.getElementById('favorite-list');
+            const favoriteVehicles = vehicles.filter(v => isFavorited(v.id));
+
+            if (favoriteVehicles.length === 0) {
+                favoriteListContainer.innerHTML = `<p class="text-center w-100" id="no-favorite-msg">Belum ada kendaraan di daftar favorit.</p>`;
+            } else {
+                favoriteListContainer.innerHTML = favoriteVehicles.map(createProductCardHTML).join('');
+                document.getElementById('no-favorite-msg')?.remove();
+            }
+        };
+
+
+        // --- Fitur Transaksi (Local Storage) ---
+
+        let transactions = getLocalStorage('myotomotif_transactions', []);
+
+        const renderTransactionHistory = () => {
+            const historyBody = document.getElementById('transaction-history');
+            if (transactions.length === 0) {
+                historyBody.innerHTML = `<tr><td colspan="5" class="text-center" id="no-transaction-msg">Belum ada riwayat transaksi.</td></tr>`;
+                return;
+            }
+
+            historyBody.innerHTML = transactions.map(t => `
+                <tr>
+                    <td>#${t.id.substring(0, 8).toUpperCase()}</td>
+                    <td class="text-primary-color">${t.vehicleName}</td>
+                    <td>${formatRupiah(t.price)}</td>
+                    <td><span class="badge bg-primary-color">${t.method}</span></td>
+                    <td>${new Date(t.date).toLocaleDateString('id-ID')}</td>
+                </tr>
+            `).join('');
+        };
+
+        const openPaymentModal = (btn) => {
+            const modalElement = document.getElementById('productDetailModal');
+            const vehicleId = modalElement.querySelector('#detail-fav-btn').dataset.id;
+            const vehicle = vehicles.find(v => v.id === vehicleId);
+
+            if (vehicle) {
+                selectedVehicleForTransaction = vehicle;
+                document.getElementById('checkout-item-id').value = vehicle.id;
+                document.getElementById('checkout-item-name').textContent = vehicle.name;
+                document.getElementById('checkout-item-price').textContent = formatRupiah(vehicle.price);
+
+                // Tutup modal detail, lalu buka modal pembayaran
+                const detailModal = bootstrap.Modal.getInstance(document.getElementById('productDetailModal'));
+                detailModal.hide();
+                const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                paymentModal.show();
+            }
+        };
+
+        const completeTransaction = (event) => {
+            event.preventDefault();
+            const paymentMethod = document.getElementById('payment-method').value;
+
+            if (selectedVehicleForTransaction && paymentMethod) {
+                const newTransaction = {
+                    id: 'TRX-' + Date.now(),
+                    vehicleId: selectedVehicleForTransaction.id,
+                    vehicleName: selectedVehicleForTransaction.name,
+                    price: selectedVehicleForTransaction.price,
+                    method: paymentMethod,
+                    date: new Date().toISOString()
+                };
+
+                transactions.unshift(newTransaction); // Tambahkan di awal list
+                setLocalStorage('myotomotif_transactions', transactions);
+
+                alert(`Transaksi berhasil!\nItem: ${selectedVehicleForTransaction.name}\nMetode: ${paymentMethod}`);
+
+                // Reset state
+                selectedVehicleForTransaction = null;
+                document.getElementById('payment-form').reset();
+
+                // Tutup modal pembayaran dan update riwayat
+                const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                paymentModal.hide();
+                renderTransactionHistory();
+
+                // Arahkan ke bagian riwayat
+                window.location.hash = '#transaksi';
+            }
+        };
+
+        // --- Rendering Produk dan Filter ---
+
+        // Fungsi pembantu untuk membuat HTML card produk
+        const createProductCardHTML = (vehicle) => {
+            const isFav = isFavorited(vehicle.id);
+            const favIconClass = isFav ? 'fas' : 'far';
+            const favBtnClass = isFav ? 'favorited' : '';
+            return `
+                <div class="col">
+                    <div class="card product-card" onclick="openProductDetail('${vehicle.id}')">
+                        <button class="favorite-btn ${favBtnClass}" onclick="event.stopPropagation(); toggleFavorite('${vehicle.id}')" data-id="${vehicle.id}">
+                            <i class="${favIconClass} fa-heart"></i>
+                        </button>
+                        <div class="product-img-container">
+                            <img src="${vehicle.img}" class="card-img-top" alt="${vehicle.name}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">${vehicle.name}</h5>
+                            <p class="card-text text-primary-color fw-bold">${formatRupiah(vehicle.price)}</p>
+                            <span class="badge bg-primary-color">${vehicle.category.toUpperCase()}</span>
+                            <span class="badge bg-secondary ms-2"><i class="fas fa-eye"></i> ${vehicle.views}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        // Fungsi utama untuk merender daftar produk
+        const renderProductList = (data, containerSelector) => {
+            const productListContainer = document.querySelector(containerSelector);
+            const displayData = data
+                .filter(v => currentFilterCategory === '' || v.category === currentFilterCategory)
+                .filter(v => currentSearchQuery === '' || v.name.toLowerCase().includes(currentSearchQuery.toLowerCase()));
+
+            // Urutkan berdasarkan views (paling diminati) untuk Beranda
+            displayData.sort((a, b) => b.views - a.views);
+
+            productListContainer.innerHTML = displayData.map(createProductCardHTML).join('');
+
+            // Terapkan animasi untuk produk yang baru muncul
+            anime({
+                targets: containerSelector + ' .col',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                delay: anime.stagger(50),
+                easing: 'easeOutQuad'
+            });
+        };
+
+        // --- Fitur Interaksi (Search, Filter, Detail) ---
+
+        const filterCategory = (category) => {
+            currentSearchQuery = '';
+            document.getElementById('search-input').value = '';
+            currentFilterCategory = category;
+            renderProductList(vehicles, '#product-list');
+            window.location.hash = '#home'; // Kembali ke Beranda
+            alert(`Menampilkan kategori: ${category.toUpperCase()}`);
+        };
+
+        const searchVehicle = (event) => {
+            event.preventDefault();
+            currentFilterCategory = ''; // Reset filter kategori saat mencari
+            const query = document.getElementById('search-input').value.trim();
+            currentSearchQuery = query;
+
+            renderProductList(vehicles, '#product-list');
+            window.location.hash = '#home'; // Kembali ke Beranda
+        };
+
+        const updateDetailModalFavoriteButton = (vehicleId) => {
+            const favBtn = document.getElementById('detail-fav-btn');
+            const isFav = isFavorited(vehicleId);
+            favBtn.dataset.id = vehicleId;
+            favBtn.innerHTML = `<i class="${isFav ? 'fas' : 'far'} fa-heart"></i> ${isFav ? 'Hapus dari' : 'Tambah'} Favorit`;
+            favBtn.className = isFav ? 'btn btn-primary' : 'btn btn-outline-light';
+        };
+
+        const openProductDetail = (vehicleId) => {
+            const vehicle = vehicles.find(v => v.id === vehicleId);
+            if (!vehicle) return;
+
+            document.getElementById('detail-name').textContent = vehicle.name;
+            document.getElementById('detail-price').textContent = formatRupiah(vehicle.price);
+            document.getElementById('detail-description').textContent = vehicle.description;
+            document.getElementById('detail-img').src = vehicle.img;
+            // Video detail: Saat ini menggunakan CS.mp4 yang sama, bisa diubah jika ada video spesifik
+            document.getElementById('detail-video').src = 'assets/CS.mp4';
+
+            // Spesifikasi
+            const specsList = document.getElementById('detail-specs');
+            specsList.innerHTML = vehicle.specs.map(spec => `<li><i class="fas fa-check-circle text-primary-color me-2"></i> ${spec}</li>`).join('');
+
+            // Update tombol favorit di modal
+            updateDetailModalFavoriteButton(vehicleId);
+
+            // Buka Modal
+            const detailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
+            detailModal.show();
+        };
+
+        // --- Inisialisasi Aplikasi ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Render List Produk Awal (Beranda)
+            renderProductList(vehicles, '#product-list');
+
+            // 2. Render List Favorit
+            renderFavoriteList();
+
+            // 3. Render Riwayat Transaksi
+            renderTransactionHistory();
+
+            // 4. Animasi Judul Utama dengan Anime.js
+            const titleElement = document.querySelector('#header-content h1');
+            const text = titleElement.textContent;
+            titleElement.innerHTML = text.replace(/\S/g, "<span class='letter'>$&</span>");
+
+            anime.timeline({loop: false})
+                .add({
+                    targets: '#header-content h1 .letter',
+                    scale: [0.3, 1],
+                    opacity: [0, 1],
+                    translateZ: 0,
+                    easing: "easeOutExpo",
+                    duration: 1000,
+                    delay: (el, i) => 30 * (i+1)
+                });
+        });
+    </script>
+
+</body>
+</html>
