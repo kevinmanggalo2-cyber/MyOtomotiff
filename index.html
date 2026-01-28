@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyOtomotif | Jual Beli Motor & Mobil Sport</title>
+    <title>MyOtomotif | Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" type="image/png" href="/assets/MO.png"></head></link>
-    <title>MyOtomotif</title>
+    <link rel="icon" type="image/png" href="/assets/MO.png">
     <style>
         /* Variabel CSS untuk Warna */
         :root {
@@ -23,384 +22,517 @@
             font-family: var(--font-main);
             background-color: var(--color-secondary);
             color: var(--color-light);
-            transition: background-color 0.3s ease;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6, .navbar-brand {
+        h1, h2, h3, h4, h5, h6 {
             font-family: var(--font-main);
             font-weight: 700;
-            color: var(--color-light);
         }
 
-        .text-primary-color {
-            color: var(--color-primary) !important;
-        }
-        .bg-primary-color {
-            background-color: var(--color-primary) !important;
-        }
-        .btn-primary {
-            background-color: var(--color-primary);
-            border-color: var(--color-primary);
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #A00B0B; /* Merah Lebih Gelap */
-            border-color: #A00B0B;
-            transform: translateY(-2px);
-        }
-
-        /* Header dengan Background Video */
-        #header-video {
-            position: relative;
-            height: 80vh; /* Tinggi Header */
-            overflow: hidden;
+        /* Halaman Login/Signup */
+        .auth-container {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-        }
-        #header-video video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: 0;
-            transform: translate(-50%, -50%);
-            /* Memastikan video memenuhi container dan terpotong jika perlu */
-        }
-        #header-content {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6); /* Overlay gelap */
-            border-radius: 10px;
-        }
-        #header-content h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('assets/MO.png') center/cover;
         }
 
-        /* Navbar Styling */
-        .navbar {
-            background-color: var(--color-secondary) !important;
-            border-bottom: 2px solid var(--color-primary);
+        .auth-card {
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid var(--color-primary);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(220, 14, 14, 0.3);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
         }
-        .navbar-brand img {
-            height: 40px; /* Tinggi Logo */
-            margin-right: 10px;
+
+        .auth-header {
+            background: linear-gradient(135deg, var(--color-primary), #A00B0B);
+            padding: 30px;
+            text-align: center;
         }
-        .nav-link {
-            color: var(--color-light) !important;
-            font-weight: 700;
-            margin: 0 10px;
-            transition: color 0.3s ease, border-bottom 0.3s ease;
+
+        .auth-header img {
+            height: 60px;
+            margin-bottom: 15px;
         }
-        .nav-link:hover, .nav-link.active {
+
+        .auth-header h1 {
+            color: var(--color-light);
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .auth-header p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 5px 0 0;
+        }
+
+        .auth-body {
+            padding: 30px;
+        }
+
+        .auth-tabs {
+            margin-bottom: 25px;
+            border-bottom: 2px solid #444;
+        }
+
+        .auth-tabs .nav-link {
+            color: #888 !important;
+            background: none;
+            border: none;
+            border-radius: 0;
+            padding: 12px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .auth-tabs .nav-link.active {
             color: var(--color-primary) !important;
+            background: none;
             border-bottom: 3px solid var(--color-primary);
         }
 
-        /* Kartu Produk (Motor/Mobil) */
-        .product-card {
-            background-color: #1a1a1a; /* Agak terang dari background */
-            border: 1px solid rgba(220, 14, 14, 0.5); /* Border Merah Muda */
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            height: 100%; /* Memastikan tinggi kartu sama di grid */
+        .auth-tabs .nav-link:hover:not(.active) {
+            color: #ccc !important;
         }
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(220, 14, 14, 0.3);
-        }
-        .product-img-container {
-            height: 200px;
-            overflow: hidden;
-        }
-        .product-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .product-card:hover img {
-            transform: scale(1.05);
-        }
-        .product-card .card-body {
-            padding: 15px;
-        }
-        .product-card .card-title {
-            color: var(--color-primary);
-            font-weight: 900;
-        }
-        .favorite-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+
+        .auth-form .form-control {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
             color: var(--color-light);
-            background: rgba(0, 0, 0, 0.5);
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .auth-form .form-control:focus {
+            background-color: #333;
+            border-color: var(--color-primary);
+            color: var(--color-light);
+            box-shadow: 0 0 0 0.25rem rgba(220, 14, 14, 0.25);
+        }
+
+        .auth-form .form-label {
+            color: #ccc;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .btn-auth {
+            background: linear-gradient(135deg, var(--color-primary), #A00B0B);
             border: none;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
+            color: white;
+            padding: 12px;
+            font-weight: 700;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            width: 100%;
         }
-        .favorite-btn:hover {
+
+        .btn-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 14, 14, 0.4);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .form-check-label {
+            color: #aaa;
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .auth-links a {
             color: var(--color-primary);
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .favorite-btn.favorited i {
-            color: var(--color-primary);
-        }
-
-        /* Animasi Kustom dengan Anime.js */
-        .section-title {
-            font-weight: 900;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            display: inline-block;
-            border-bottom: 4px solid var(--color-primary);
-            padding-bottom: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
 
-        /* Footer */
-        footer {
-            background-color: #1a1a1a;
-            border-top: 2px solid var(--color-primary);
-            padding: 20px 0;
-            margin-top: 50px;
+        .auth-links a:hover {
+            color: #ff3333;
+            text-decoration: underline;
         }
 
-        /* Tampilan Mobile */
+        /* Halaman Utama (Akan Disembunyikan Sampai Login) */
+        .main-content {
+            display: none;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            #header-content h1 {
-                font-size: 2.5rem;
+            .auth-card {
+                margin: 20px;
+                max-width: 90%;
             }
-            .section-title {
-                font-size: 2rem;
+            
+            .auth-header {
+                padding: 20px;
             }
-            .navbar-brand img {
-                height: 30px;
+            
+            .auth-body {
+                padding: 20px;
             }
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .auth-card {
+            animation: fadeIn 0.6s ease-out;
         }
     </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="50">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#home">
+    <!-- Halaman Login/Signup (Tampilan Awal) -->
+    <div id="auth-page" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
                 <img src="assets/MO.png" alt="MyOtomotif Logo">
-                My<span class="text-primary-color">Otomotif</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#kategori">Kategori</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#transaksi">Riwayat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tentang">Tentang Kami</a></li>
+                <h1>My<span style="color: var(--color-light)">Otomotif</span></h1>
+                <p>POWER. SPEED. STYLE.</p>
+            </div>
+            
+            <div class="auth-body">
+                <!-- Tabs untuk Login/Signup -->
+                <ul class="nav nav-tabs auth-tabs" id="authTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button" role="tab">Daftar</button>
+                    </li>
                 </ul>
-                <form class="d-flex" onsubmit="searchVehicle(event)">
-                    <input class="form-control me-2" type="search" placeholder="Cari Kendaraan..." aria-label="Search" id="search-input">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-    <header id="header-video" class="mb-5">
-        <video autoplay muted loop id="video-bg">
-            <source src="assets/CS.mp4" type="video/mp4">
-            Browser Anda tidak mendukung tag video.
-        </video>
-        <div id="header-content">
-            <h1 class="text-primary-color">POWER. SPEED. STYLE.</h1>
-            <p class="lead text-light">Temukan Motor dan Mobil Sport Impian Anda.</p>
-            <a class="btn btn-primary btn-lg mt-3" href="#home">Lihat Koleksi</a>
-        </div>
-    </header>
-
-    <main class="container">
-        <section id="home" class="py-5">
-            <div class="text-center">
-                <h2 class="section-title text-light">🔥 Kendaraan Paling Diminati 🔥</h2>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="product-list">
-                </div>
-        </section>
-
-        <hr class="border border-primary-color border-3 opacity-75 my-5">
-
-        <section id="kategori" class="py-5">
-            <div class="text-center">
-                <h2 class="section-title text-light">Kategori Kendaraan</h2>
-            </div>
-            <div class="row text-center g-4">
-                <div class="col-md-6">
-                    <div class="card bg-dark text-light border-primary-color product-card p-4">
-                        <i class="fas fa-motorcycle fa-4x mb-3 text-primary-color"></i>
-                        <h3 class="card-title">Motor Sport</h3>
-                        <p>Koleksi motor berperforma tinggi dari berbagai merek ternama.</p>
-                        <a href="#" class="btn btn-primary mt-2" onclick="filterCategory('motor')">Lihat Motor</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card bg-dark text-light border-primary-color product-card p-4">
-                        <i class="fas fa-car fa-4x mb-3 text-primary-color"></i>
-                        <h3 class="card-title">Mobil Sport</h3>
-                        <p>Mobil mewah dan cepat yang siap memacu adrenalin Anda.</p>
-                        <a href="#" class="btn btn-primary mt-2" onclick="filterCategory('mobil')">Lihat Mobil</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="border border-primary-color border-3 opacity-75 my-5">
-
-        <section id="favorit" class="py-5">
-            <div class="text-center">
-                <h2 class="section-title text-light">⭐ Kendaraan Favorit Anda ⭐</h2>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="favorite-list">
-                <p class="text-center w-100" id="no-favorite-msg">Belum ada kendaraan di daftar favorit.</p>
-                </div>
-        </section>
-
-        <section id="transaksi" class="py-5">
-            <div class="text-center">
-                <h2 class="section-title text-light">Riwayat Transaksi</h2>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-dark table-striped table-hover">
-                    <thead>
-                        <tr class="bg-primary-color">
-                            <th>ID Transaksi</th>
-                            <th>Kendaraan</th>
-                            <th>Harga</th>
-                            <th>Metode Pembayaran</th>
-                            <th>Tanggal</th>
-                        </tr>
-                    </thead>
-                    <tbody id="transaction-history">
-                        <tr><td colspan="5" class="text-center" id="no-transaction-msg">Belum ada riwayat transaksi.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <hr class="border border-primary-color border-3 opacity-75 my-5">
-
-        <section id="tentang" class="py-5 text-center">
-            <h2 class="section-title text-light">Tentang MyOtomotif</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <p class="lead">MyOtomotif adalah platform jual beli motor dan mobil sport premium, diciptakan untuk memenuhi hasrat para **pecinta otomotif** sejati. Kami berkomitmen menyediakan koleksi kendaraan berperforma tinggi dengan pengalaman transaksi yang aman dan profesional.</p>
-
-                    <h4 class="mt-4 text-primary-color">Profile Pembuat</h4>
-                    <p class="mb-1"><strong>Nama:</strong> Kevin Dwi Kumara Siri Manggalo</p>
-                    <p class="mb-1"><strong>Semester:</strong> 5</p>
-                    <p class="mb-1"><strong>Program Studi:</strong> Bisnis Digital</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="text-center text-md-start">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0">&copy; 2025 MyOtomotif. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <a href="#" class="text-light mx-2"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-light mx-2"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-light mx-2"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-dark border-primary-color">
-                <div class="modal-header border-bottom border-primary-color">
-                    <h5 class="modal-title text-primary-color" id="productDetailModalLabel">Detail Kendaraan</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <img id="detail-img" src="" class="img-fluid rounded mb-3" alt="Kendaraan Detail">
-                            <div class="ratio ratio-16x9">
-                                <video id="detail-video" controls class="rounded">
-                                    <source src="assets/CS.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
+                
+                <div class="tab-content mt-4">
+                    <!-- Form Login -->
+                    <div class="tab-pane fade show active" id="login" role="tabpanel">
+                        <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
+                            <div class="mb-3">
+                                <label for="login-email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="login-email" placeholder="nama@email.com" required>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h2 id="detail-name" class="text-light"></h2>
-                            <p class="lead text-primary-color" id="detail-price"></p>
-                            <p id="detail-description"></p>
-                            <hr>
-                            <h5 class="text-primary-color">Spesifikasi Utama:</h5>
-                            <ul id="detail-specs" class="list-unstyled">
-                                </ul>
-                            <div class="mt-4">
-                                <button class="btn btn-primary me-2" onclick="openPaymentModal(this)" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                                    <i class="fas fa-shopping-cart"></i> Beli Sekarang
-                                </button>
-                                <button id="detail-fav-btn" class="btn btn-outline-light" onclick="toggleFavorite(this.dataset.id)">
-                                    <i class="far fa-heart"></i> Tambah Favorit
-                                </button>
+                            <div class="mb-3">
+                                <label for="login-password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="login-password" placeholder="••••••••" required>
                             </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember-me">
+                                <label class="form-check-label" for="remember-me">Ingat saya</label>
+                            </div>
+                            <button type="submit" class="btn btn-auth">Masuk</button>
+                        </form>
+                        <div class="auth-links">
+                            <a href="#" onclick="showForgotPassword()">Lupa password?</a>
                         </div>
+                    </div>
+                    
+                    <!-- Form Signup -->
+                    <div class="tab-pane fade" id="signup" role="tabpanel">
+                        <form class="auth-form" id="signup-form" onsubmit="handleSignup(event)">
+                            <div class="mb-3">
+                                <label for="signup-name" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="signup-name" placeholder="Nama Anda" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signup-email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="signup-email" placeholder="nama@email.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signup-phone" class="form-label">Nomor Telepon</label>
+                                <input type="tel" class="form-control" id="signup-phone" placeholder="08XXXXXXXXXX" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signup-password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="signup-password" placeholder="••••••••" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signup-confirm-password" class="form-label">Konfirmasi Password</label>
+                                <input type="password" class="form-control" id="signup-confirm-password" placeholder="••••••••" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="agree-terms" required>
+                                <label class="form-check-label" for="agree-terms">
+                                    Saya setuju dengan <a href="#" class="text-primary">Syarat & Ketentuan</a>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-auth">Daftar Sekarang</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark border-primary-color">
-                <div class="modal-header border-bottom border-primary-color">
-                    <h5 class="modal-title text-primary-color" id="paymentModalLabel">Metode Pembayaran</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-light">Anda akan membeli: <strong id="checkout-item-name"></strong> seharga <strong id="checkout-item-price" class="text-primary-color"></strong></p>
-                    <form id="payment-form" onsubmit="completeTransaction(event)">
-                        <div class="mb-3">
-                            <label for="payment-method" class="form-label text-light">Pilih Metode Pembayaran</label>
-                            <select class="form-select bg-dark text-light border-primary-color" id="payment-method" required>
-                                <option value="" disabled selected>Pilih...</option>
-                                <option value="Transfer Bank">Transfer Bank</option>
-                                <option value="Kartu Kredit">Kartu Kredit</option>
-                                <option value="E-Wallet">E-Wallet (OVO/Gopay)</option>
-                                <option value="Cicilan">Cicilan 0%</option>
-                            </select>
+    <!-- Halaman Utama MyOtomotif (Awalnya Tersembunyi) -->
+    <div id="main-page" class="main-content" style="display: none;">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: #000; border-bottom: 2px solid var(--color-primary);">
+            <div class="container">
+                <a class="navbar-brand" href="#home">
+                    <img src="assets/MO.png" alt="MyOtomotif Logo" style="height: 40px;">
+                    My<span style="color: var(--color-primary)">Otomotif</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#kategori">Kategori</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#transaksi">Riwayat</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tentang">Tentang Kami</a></li>
+                    </ul>
+                    
+                    <div class="d-flex align-items-center">
+                        <span id="user-welcome" class="user-welcome" style="color: var(--color-primary); font-weight: 700; margin-right: 15px;"></span>
+                        <form class="d-flex me-3" onsubmit="searchVehicle(event)">
+                            <input class="form-control me-2" type="search" placeholder="Cari Kendaraan..." aria-label="Search" id="search-input" style="background: #1a1a1a; color: white; border: 1px solid #444;">
+                            <button class="btn" type="submit" style="background-color: var(--color-primary); color: white;"><i class="fas fa-search"></i></button>
+                        </form>
+                        
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end bg-dark border-primary-color" aria-labelledby="userDropdown">
+                                <li><span class="dropdown-item text-light" id="dropdown-username"></span></li>
+                                <li><hr class="dropdown-divider" style="background-color: var(--color-primary);"></li>
+                                <li><button class="dropdown-item text-light" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li>
+                            </ul>
                         </div>
-                        <input type="hidden" id="checkout-item-id">
-                        <button type="submit" class="btn btn-primary w-100">Konfirmasi Pembayaran</button>
-                    </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header dengan Video -->
+        <header id="header-video" style="position: relative; height: 80vh; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; margin-top: 56px;">
+            <video autoplay muted loop id="video-bg" style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 0; transform: translate(-50%, -50%);">
+                <source src="assets/CS.mp4" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
+            <div id="header-content" style="position: relative; z-index: 1; padding: 20px; background: rgba(0, 0, 0, 0.6); border-radius: 10px;">
+                <h1 style="font-size: 3.5rem; font-weight: 900; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); color: var(--color-primary);">POWER. SPEED. STYLE.</h1>
+                <p class="lead text-light">Temukan Motor dan Mobil Sport Impian Anda.</p>
+                <a class="btn btn-lg mt-3" href="#home" style="background-color: var(--color-primary); color: white; border: none; font-weight: 700;">Lihat Koleksi</a>
+            </div>
+        </header>
+
+        <!-- Konten Utama -->
+        <main class="container" style="color: white;">
+            <section id="home" class="py-5">
+                <div class="text-center">
+                    <h2 class="section-title" style="font-weight: 900; font-size: 2.5rem; margin-bottom: 30px; display: inline-block; border-bottom: 4px solid var(--color-primary); padding-bottom: 5px;">🔥 Kendaraan Paling Diminati 🔥</h2>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="product-list"></div>
+            </section>
+
+            <hr style="border: 3px solid var(--color-primary); opacity: 0.75; margin: 2rem 0;">
+
+            <section id="kategori" class="py-5">
+                <div class="text-center">
+                    <h2 class="section-title" style="font-weight: 900; font-size: 2.5rem; margin-bottom: 30px; display: inline-block; border-bottom: 4px solid var(--color-primary); padding-bottom: 5px;">Kategori Kendaraan</h2>
+                </div>
+                <div class="row text-center g-4">
+                    <div class="col-md-6">
+                        <div class="card bg-dark text-light border-primary-color product-card p-4" style="background-color: #1a1a1a; border: 1px solid rgba(220, 14, 14, 0.5); border-radius: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; height: 100%;">
+                            <i class="fas fa-motorcycle fa-4x mb-3" style="color: var(--color-primary);"></i>
+                            <h3 class="card-title" style="color: var(--color-primary); font-weight: 900;">Motor Sport</h3>
+                            <p>Koleksi motor berperforma tinggi dari berbagai merek ternama.</p>
+                            <a href="#" class="btn mt-2" onclick="filterCategory('motor')" style="background-color: var(--color-primary); color: white; border: none;">Lihat Motor</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-dark text-light border-primary-color product-card p-4" style="background-color: #1a1a1a; border: 1px solid rgba(220, 14, 14, 0.5); border-radius: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; height: 100%;">
+                            <i class="fas fa-car fa-4x mb-3" style="color: var(--color-primary);"></i>
+                            <h3 class="card-title" style="color: var(--color-primary); font-weight: 900;">Mobil Sport</h3>
+                            <p>Mobil mewah dan cepat yang siap memacu adrenalin Anda.</p>
+                            <a href="#" class="btn mt-2" onclick="filterCategory('mobil')" style="background-color: var(--color-primary); color: white; border: none;">Lihat Mobil</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr style="border: 3px solid var(--color-primary); opacity: 0.75; margin: 2rem 0;">
+
+            <section id="favorit" class="py-5">
+                <div class="text-center">
+                    <h2 class="section-title" style="font-weight: 900; font-size: 2.5rem; margin-bottom: 30px; display: inline-block; border-bottom: 4px solid var(--color-primary); padding-bottom: 5px;">⭐ Kendaraan Favorit Anda ⭐</h2>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="favorite-list">
+                    <p class="text-center w-100" id="no-favorite-msg">Belum ada kendaraan di daftar favorit.</p>
+                </div>
+            </section>
+
+            <section id="transaksi" class="py-5">
+                <div class="text-center">
+                    <h2 class="section-title" style="font-weight: 900; font-size: 2.5rem; margin-bottom: 30px; display: inline-block; border-bottom: 4px solid var(--color-primary); padding-bottom: 5px;">Riwayat Transaksi</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr style="background-color: var(--color-primary);">
+                                <th>ID Transaksi</th>
+                                <th>Kendaraan</th>
+                                <th>Harga</th>
+                                <th>Metode Pembayaran</th>
+                                <th>Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transaction-history">
+                            <tr><td colspan="5" class="text-center" id="no-transaction-msg">Belum ada riwayat transaksi.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <hr style="border: 3px solid var(--color-primary); opacity: 0.75; margin: 2rem 0;">
+
+            <section id="tentang" class="py-5 text-center">
+                <h2 class="section-title" style="font-weight: 900; font-size: 2.5rem; margin-bottom: 30px; display: inline-block; border-bottom: 4px solid var(--color-primary); padding-bottom: 5px;">Tentang MyOtomotif</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <p class="lead">MyOtomotif adalah platform jual beli motor dan mobil sport premium, diciptakan untuk memenuhi hasrat para **pecinta otomotif** sejati. Kami berkomitmen menyediakan koleksi kendaraan berperforma tinggi dengan pengalaman transaksi yang aman dan profesional.</p>
+
+                        <h4 class="mt-4" style="color: var(--color-primary);">Profile Pembuat</h4>
+                        <p class="mb-1"><strong>Nama:</strong> Kevin Dwi Kumara Siri Manggalo</p>
+                        <p class="mb-1"><strong>Semester:</strong> 5</p>
+                        <p class="mb-1"><strong>Program Studi:</strong> Bisnis Digital</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center text-md-start" style="background-color: #1a1a1a; border-top: 2px solid var(--color-primary); padding: 20px 0; margin-top: 50px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2025 MyOtomotif. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <a href="#" class="text-light mx-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-light mx-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light mx-2"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Modal Detail Produk -->
+        <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content" style="background-color: #1a1a1a; border: 2px solid var(--color-primary);">
+                    <div class="modal-header border-bottom" style="border-color: var(--color-primary);">
+                        <h5 class="modal-title" style="color: var(--color-primary);">Detail Kendaraan</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img id="detail-img" src="" class="img-fluid rounded mb-3" alt="Kendaraan Detail">
+                                <div class="ratio ratio-16x9">
+                                    <video id="detail-video" controls class="rounded">
+                                        <source src="assets/CS.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h2 id="detail-name" class="text-light"></h2>
+                                <p class="lead" id="detail-price" style="color: var(--color-primary);"></p>
+                                <p id="detail-description" class="text-light"></p>
+                                <hr>
+                                <h5 style="color: var(--color-primary);">Spesifikasi Utama:</h5>
+                                <ul id="detail-specs" class="list-unstyled"></ul>
+                                <div class="mt-4">
+                                    <button class="btn me-2" onclick="openPaymentModal(this)" style="background-color: var(--color-primary); color: white;">
+                                        <i class="fas fa-shopping-cart"></i> Beli Sekarang
+                                    </button>
+                                    <button id="detail-fav-btn" class="btn btn-outline-light" onclick="toggleFavorite(this.dataset.id)">
+                                        <i class="far fa-heart"></i> Tambah Favorit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Pembayaran -->
+        <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="background-color: #1a1a1a; border: 2px solid var(--color-primary);">
+                    <div class="modal-header border-bottom" style="border-color: var(--color-primary);">
+                        <h5 class="modal-title" style="color: var(--color-primary);">Metode Pembayaran</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-light">Anda akan membeli: <strong id="checkout-item-name"></strong> seharga <strong id="checkout-item-price" style="color: var(--color-primary);"></strong></p>
+                        <form id="payment-form" onsubmit="completeTransaction(event)">
+                            <div class="mb-3">
+                                <label for="payment-method" class="form-label text-light">Pilih Metode Pembayaran</label>
+                                <select class="form-select" id="payment-method" required style="background-color: #2a2a2a; color: white; border: 1px solid #444;">
+                                    <option value="" disabled selected>Pilih...</option>
+                                    <option value="Transfer Bank">Transfer Bank</option>
+                                    <option value="Kartu Kredit">Kartu Kredit</option>
+                                    <option value="E-Wallet">E-Wallet (OVO/Gopay)</option>
+                                    <option value="Cicilan">Cicilan 0%</option>
+                                </select>
+                            </div>
+                            <input type="hidden" id="checkout-item-id">
+                            <button type="submit" class="btn w-100" style="background-color: var(--color-primary); color: white;">Konfirmasi Pembayaran</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Lupa Password -->
+        <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="background-color: #1a1a1a; border: 2px solid var(--color-primary);">
+                    <div class="modal-header border-bottom" style="border-color: var(--color-primary);">
+                        <h5 class="modal-title" style="color: var(--color-primary);">Reset Password</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="forgot-password-form" onsubmit="handleForgotPassword(event)">
+                            <div class="mb-3">
+                                <label for="reset-email" class="form-label text-light">Masukkan email Anda</label>
+                                <input type="email" class="form-control" id="reset-email" required style="background-color: #2a2a2a; color: white; border: 1px solid #444;">
+                                <div class="form-text text-light">Kami akan mengirimkan link reset password ke email Anda.</div>
+                            </div>
+                            <button type="submit" class="btn w-100" style="background-color: var(--color-primary); color: white;">Kirim Link Reset</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <a href="#" class="text-primary-color" onclick="backToLogin()" style="color: var(--color-primary);">Kembali ke Login</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
@@ -433,44 +565,181 @@
             { id: 'B010', name: 'Subaru BRZ', category: 'mobil', price: 12000000000, img: 'assets/MB10.jpg', description: 'Supercar mesin tengah Amerika yang revolusioner dengan flat-plane crank V8.', specs: ['5.5L Flat-Plane V8', '670 HP', '0-100 kpj: 2.6s', 'Mid-Engine'], views: 450 },
         ];
 
-        // --- JavaScript Global State dan Utils ---
+        // --- Sistem Autentikasi ---
+        let currentUser = JSON.parse(localStorage.getItem('myotomotif_currentUser'));
+        let users = JSON.parse(localStorage.getItem('myotomotif_users')) || [];
 
-        let currentSearchQuery = '';
-        let currentFilterCategory = '';
-        let selectedVehicleForTransaction = null;
+        // Fungsi untuk beralih ke halaman utama
+        const showMainPage = () => {
+            document.getElementById('auth-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
+            updateAuthUI();
+            renderProductList(vehicles, '#product-list');
+            renderFavoriteList();
+            renderTransactionHistory();
+            // Animasi header
+            const titleElement = document.querySelector('#header-content h1');
+            const text = titleElement.textContent;
+            titleElement.innerHTML = text.replace(/\S/g, "<span class='letter'>$&</span>");
+            anime.timeline({loop: false}).add({
+                targets: '#header-content h1 .letter',
+                scale: [0.3, 1],
+                opacity: [0, 1],
+                translateZ: 0,
+                easing: "easeOutExpo",
+                duration: 1000,
+                delay: (el, i) => 30 * (i+1)
+            });
+        };
 
-        // Fungsi Format Rupiah
-        const formatRupiah = (number) => new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0
-        }).format(number);
+        // Cek jika user sudah login saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            if (currentUser) {
+                showMainPage();
+            }
+        });
 
-        // Fungsi untuk mendapatkan data dari LocalStorage
-        const getLocalStorage = (key, defaultValue = []) => {
-            try {
-                const data = localStorage.getItem(key);
-                return data ? JSON.parse(data) : defaultValue;
-            } catch (e) {
-                console.error(`Error reading localStorage key "${key}":`, e);
-                return defaultValue;
+        const handleLogin = (event) => {
+            event.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Validasi sederhana
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    phone: user.phone
+                };
+                
+                localStorage.setItem('myotomotif_currentUser', JSON.stringify(currentUser));
+                
+                // Reset form
+                document.getElementById('login-form').reset();
+                
+                alert(`Selamat datang kembali, ${user.name}!`);
+                showMainPage();
+            } else {
+                alert('Email atau password salah!');
             }
         };
 
-        // Fungsi untuk menyimpan data ke LocalStorage
-        const setLocalStorage = (key, value) => {
-            try {
-                localStorage.setItem(key, JSON.stringify(value));
-            } catch (e) {
-                console.error(`Error writing localStorage key "${key}":`, e);
+        const handleSignup = (event) => {
+            event.preventDefault();
+            
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const phone = document.getElementById('signup-phone').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            
+            // Validasi
+            if (password !== confirmPassword) {
+                alert('Password dan konfirmasi password tidak cocok!');
+                return;
+            }
+            
+            if (users.some(u => u.email === email)) {
+                alert('Email sudah terdaftar!');
+                return;
+            }
+            
+            // Buat user baru
+            const newUser = {
+                id: 'USER-' + Date.now(),
+                name: name,
+                email: email,
+                phone: phone,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('myotomotif_users', JSON.stringify(users));
+            
+            // Auto login setelah signup
+            currentUser = {
+                id: newUser.id,
+                name: newUser.name,
+                email: newUser.email,
+                phone: newUser.phone
+            };
+            
+            localStorage.setItem('myotomotif_currentUser', JSON.stringify(currentUser));
+            
+            // Reset form
+            document.getElementById('signup-form').reset();
+            
+            alert(`Pendaftaran berhasil! Selamat datang, ${name}!`);
+            showMainPage();
+        };
+
+        const showForgotPassword = () => {
+            // Buka modal forgot password
+            const forgotModal = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+            forgotModal.show();
+        };
+
+        const handleForgotPassword = (event) => {
+            event.preventDefault();
+            
+            const email = document.getElementById('reset-email').value;
+            
+            // Cek apakah email terdaftar
+            if (users.some(u => u.email === email)) {
+                alert(`Link reset password telah dikirim ke ${email}. Silakan cek email Anda.`);
+                
+                // Tutup modal
+                const forgotModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+                forgotModal.hide();
+                
+                // Reset form
+                document.getElementById('forgot-password-form').reset();
+            } else {
+                alert('Email tidak terdaftar!');
+            }
+        };
+
+        const backToLogin = () => {
+            // Tutup modal forgot password
+            const forgotModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+            forgotModal.hide();
+        };
+
+        const logout = () => {
+            currentUser = null;
+            localStorage.removeItem('myotomotif_currentUser');
+            
+            // Kembali ke halaman login
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('auth-page').style.display = 'flex';
+            
+            // Reset form login
+            document.getElementById('login-form').reset();
+            
+            alert('Anda telah logout.');
+        };
+
+        const updateAuthUI = () => {
+            if (currentUser) {
+                document.getElementById('user-welcome').textContent = `Halo, ${currentUser.name}`;
+                document.getElementById('dropdown-username').textContent = currentUser.email;
             }
         };
 
         // --- Fitur Favorite (Local Storage) ---
-
-        let favorites = getLocalStorage('myotomotif_favorites');
+        let favorites = JSON.parse(localStorage.getItem('myotomotif_favorites')) || [];
 
         const toggleFavorite = (vehicleId) => {
+            if (!currentUser) {
+                alert('Silakan login terlebih dahulu untuk menambahkan favorit!');
+                return;
+            }
+            
             const index = favorites.indexOf(vehicleId);
             if (index === -1) {
                 favorites.push(vehicleId);
@@ -479,10 +748,10 @@
                 favorites.splice(index, 1);
                 alert('Dihapus dari Favorit.');
             }
-            setLocalStorage('myotomotif_favorites', favorites);
-            renderProductList(vehicles, '#product-list'); // Update list utama
-            renderFavoriteList(); // Update list favorit
-            updateDetailModalFavoriteButton(vehicleId); // Update tombol di modal
+            localStorage.setItem('myotomotif_favorites', JSON.stringify(favorites));
+            renderProductList(vehicles, '#product-list');
+            renderFavoriteList();
+            updateDetailModalFavoriteButton(vehicleId);
         };
 
         const isFavorited = (vehicleId) => favorites.includes(vehicleId);
@@ -499,10 +768,15 @@
             }
         };
 
+        // --- Fitur Transaksi ---
+        let transactions = JSON.parse(localStorage.getItem('myotomotif_transactions')) || [];
+        let selectedVehicleForTransaction = null;
 
-        // --- Fitur Transaksi (Local Storage) ---
-
-        let transactions = getLocalStorage('myotomotif_transactions', []);
+        const formatRupiah = (number) => new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(number);
 
         const renderTransactionHistory = () => {
             const historyBody = document.getElementById('transaction-history');
@@ -514,15 +788,20 @@
             historyBody.innerHTML = transactions.map(t => `
                 <tr>
                     <td>#${t.id.substring(0, 8).toUpperCase()}</td>
-                    <td class="text-primary-color">${t.vehicleName}</td>
+                    <td style="color: var(--color-primary);">${t.vehicleName}</td>
                     <td>${formatRupiah(t.price)}</td>
-                    <td><span class="badge bg-primary-color">${t.method}</span></td>
+                    <td><span class="badge" style="background-color: var(--color-primary);">${t.method}</span></td>
                     <td>${new Date(t.date).toLocaleDateString('id-ID')}</td>
                 </tr>
             `).join('');
         };
 
         const openPaymentModal = (btn) => {
+            if (!currentUser) {
+                alert('Silakan login terlebih dahulu untuk melakukan transaksi!');
+                return;
+            }
+            
             const modalElement = document.getElementById('productDetailModal');
             const vehicleId = modalElement.querySelector('#detail-fav-btn').dataset.id;
             const vehicle = vehicles.find(v => v.id === vehicleId);
@@ -533,7 +812,6 @@
                 document.getElementById('checkout-item-name').textContent = vehicle.name;
                 document.getElementById('checkout-item-price').textContent = formatRupiah(vehicle.price);
 
-                // Tutup modal detail, lalu buka modal pembayaran
                 const detailModal = bootstrap.Modal.getInstance(document.getElementById('productDetailModal'));
                 detailModal.hide();
                 const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
@@ -552,48 +830,44 @@
                     vehicleName: selectedVehicleForTransaction.name,
                     price: selectedVehicleForTransaction.price,
                     method: paymentMethod,
-                    date: new Date().toISOString()
+                    date: new Date().toISOString(),
+                    userId: currentUser.id
                 };
 
-                transactions.unshift(newTransaction); // Tambahkan di awal list
-                setLocalStorage('myotomotif_transactions', transactions);
+                transactions.unshift(newTransaction);
+                localStorage.setItem('myotomotif_transactions', JSON.stringify(transactions));
 
-                alert(`Transaksi berhasil!\nItem: ${selectedVehicleForTransaction.name}\nMetode: ${paymentMethod}`);
+                alert(`Transaksi berhasil!\nItem: ${selectedVehicleForTransaction.name}\nMetode: ${paymentMethod}\nTerima kasih, ${currentUser.name}!`);
 
-                // Reset state
                 selectedVehicleForTransaction = null;
                 document.getElementById('payment-form').reset();
 
-                // Tutup modal pembayaran dan update riwayat
                 const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
                 paymentModal.hide();
                 renderTransactionHistory();
 
-                // Arahkan ke bagian riwayat
                 window.location.hash = '#transaksi';
             }
         };
 
-        // --- Rendering Produk dan Filter ---
-
-        // Fungsi pembantu untuk membuat HTML card produk
+        // --- Rendering Produk ---
         const createProductCardHTML = (vehicle) => {
             const isFav = isFavorited(vehicle.id);
             const favIconClass = isFav ? 'fas' : 'far';
             const favBtnClass = isFav ? 'favorited' : '';
             return `
                 <div class="col">
-                    <div class="card product-card" onclick="openProductDetail('${vehicle.id}')">
-                        <button class="favorite-btn ${favBtnClass}" onclick="event.stopPropagation(); toggleFavorite('${vehicle.id}')" data-id="${vehicle.id}">
+                    <div class="card product-card" onclick="openProductDetail('${vehicle.id}')" style="background-color: #1a1a1a; border: 1px solid rgba(220, 14, 14, 0.5); border-radius: 10px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; height: 100%;">
+                        <button class="favorite-btn ${favBtnClass}" onclick="event.stopPropagation(); toggleFavorite('${vehicle.id}')" data-id="${vehicle.id}" style="position: absolute; top: 10px; right: 10px; color: white; background: rgba(0, 0, 0, 0.5); border: none; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; z-index: 10;">
                             <i class="${favIconClass} fa-heart"></i>
                         </button>
-                        <div class="product-img-container">
-                            <img src="${vehicle.img}" class="card-img-top" alt="${vehicle.name}">
+                        <div class="product-img-container" style="height: 200px; overflow: hidden;">
+                            <img src="${vehicle.img}" class="card-img-top" alt="${vehicle.name}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">${vehicle.name}</h5>
-                            <p class="card-text text-primary-color fw-bold">${formatRupiah(vehicle.price)}</p>
-                            <span class="badge bg-primary-color">${vehicle.category.toUpperCase()}</span>
+                        <div class="card-body" style="padding: 15px;">
+                            <h5 class="card-title" style="color: var(--color-primary); font-weight: 900;">${vehicle.name}</h5>
+                            <p class="card-text fw-bold" style="color: var(--color-primary);">${formatRupiah(vehicle.price)}</p>
+                            <span class="badge" style="background-color: var(--color-primary);">${vehicle.category.toUpperCase()}</span>
                             <span class="badge bg-secondary ms-2"><i class="fas fa-eye"></i> ${vehicle.views}</span>
                         </div>
                     </div>
@@ -601,19 +875,18 @@
             `;
         };
 
-        // Fungsi utama untuk merender daftar produk
+        let currentSearchQuery = '';
+        let currentFilterCategory = '';
+
         const renderProductList = (data, containerSelector) => {
             const productListContainer = document.querySelector(containerSelector);
             const displayData = data
                 .filter(v => currentFilterCategory === '' || v.category === currentFilterCategory)
                 .filter(v => currentSearchQuery === '' || v.name.toLowerCase().includes(currentSearchQuery.toLowerCase()));
 
-            // Urutkan berdasarkan views (paling diminati) untuk Beranda
             displayData.sort((a, b) => b.views - a.views);
-
             productListContainer.innerHTML = displayData.map(createProductCardHTML).join('');
 
-            // Terapkan animasi untuk produk yang baru muncul
             anime({
                 targets: containerSelector + ' .col',
                 opacity: [0, 1],
@@ -623,25 +896,23 @@
             });
         };
 
-        // --- Fitur Interaksi (Search, Filter, Detail) ---
-
+        // --- Fitur Interaksi ---
         const filterCategory = (category) => {
             currentSearchQuery = '';
             document.getElementById('search-input').value = '';
             currentFilterCategory = category;
             renderProductList(vehicles, '#product-list');
-            window.location.hash = '#home'; // Kembali ke Beranda
+            window.location.hash = '#home';
             alert(`Menampilkan kategori: ${category.toUpperCase()}`);
         };
 
         const searchVehicle = (event) => {
             event.preventDefault();
-            currentFilterCategory = ''; // Reset filter kategori saat mencari
+            currentFilterCategory = '';
             const query = document.getElementById('search-input').value.trim();
             currentSearchQuery = query;
-
             renderProductList(vehicles, '#product-list');
-            window.location.hash = '#home'; // Kembali ke Beranda
+            window.location.hash = '#home';
         };
 
         const updateDetailModalFavoriteButton = (vehicleId) => {
@@ -660,50 +931,16 @@
             document.getElementById('detail-price').textContent = formatRupiah(vehicle.price);
             document.getElementById('detail-description').textContent = vehicle.description;
             document.getElementById('detail-img').src = vehicle.img;
-            // Video detail: Saat ini menggunakan CS.mp4 yang sama, bisa diubah jika ada video spesifik
             document.getElementById('detail-video').src = 'assets/CS.mp4';
 
-            // Spesifikasi
             const specsList = document.getElementById('detail-specs');
-            specsList.innerHTML = vehicle.specs.map(spec => `<li><i class="fas fa-check-circle text-primary-color me-2"></i> ${spec}</li>`).join('');
+            specsList.innerHTML = vehicle.specs.map(spec => `<li style="color: white;"><i class="fas fa-check-circle" style="color: var(--color-primary); margin-right: 8px;"></i> ${spec}</li>`).join('');
 
-            // Update tombol favorit di modal
             updateDetailModalFavoriteButton(vehicleId);
 
-            // Buka Modal
             const detailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
             detailModal.show();
         };
-
-        // --- Inisialisasi Aplikasi ---
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Render List Produk Awal (Beranda)
-            renderProductList(vehicles, '#product-list');
-
-            // 2. Render List Favorit
-            renderFavoriteList();
-
-            // 3. Render Riwayat Transaksi
-            renderTransactionHistory();
-
-            // 4. Animasi Judul Utama dengan Anime.js
-            const titleElement = document.querySelector('#header-content h1');
-            const text = titleElement.textContent;
-            titleElement.innerHTML = text.replace(/\S/g, "<span class='letter'>$&</span>");
-
-            anime.timeline({loop: false})
-                .add({
-                    targets: '#header-content h1 .letter',
-                    scale: [0.3, 1],
-                    opacity: [0, 1],
-                    translateZ: 0,
-                    easing: "easeOutExpo",
-                    duration: 1000,
-                    delay: (el, i) => 30 * (i+1)
-                });
-        });
     </script>
-
 </body>
 </html>
